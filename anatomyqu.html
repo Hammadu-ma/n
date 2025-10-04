@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anatomy Questions | MediLearn Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #eab308;
+            --info: #0ea5e9;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --border: #e5e7eb;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --gradient-dark: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(229, 231, 235, 0.3);
+            --neon-glow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+            --skeleton: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        }
+
+        .dark-mode {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary: #94a3b8;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-tertiary: #6b7280;
+            --border: #334155;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.6);
+            --glass: rgba(30, 41, 59, 0.85);
+            --glass-border: rgba(51, 65, 85, 0.3);
+            --neon-glow: 0 0 10px rgba(96, 165, 250, 0.5), 0 0 20px rgba(96, 165, 250, 0.3);
+            --skeleton: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            transition: var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Enhanced scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .back-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        /* Filter Section */
+        .filters-section {
+            margin-bottom: 2rem;
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Question Sets */
+        .question-sets-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .sets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .set-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            touch-action: manipulation;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .set-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .set-card:hover, .set-card:active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .set-card:active {
+            transform: translateY(-2px);
+        }
+
+        .set-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .set-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .set-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .set-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .set-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Featured Set */
+        .featured-set {
+            grid-column: 1 / -1;
+            background: var(--gradient);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-set::before {
+            display: none;
+        }
+
+        .featured-set .set-title,
+        .featured-set .set-description,
+        .featured-set .meta-value,
+        .featured-set .meta-label {
+            color: white;
+        }
+
+        .featured-set .set-type {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: var(--skeleton);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius);
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-title {
+            height: 1.5rem;
+            width: 70%;
+            margin-bottom: 1rem;
+        }
+
+        .skeleton-meta {
+            height: 1.1rem;
+            width: 40%;
+        }
+
+        .skeleton-card {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* No Results */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .activity-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .activity-item:hover {
+            background: var(--glass);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .activity-info {
+            flex: 1;
+        }
+
+        .activity-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-details {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .activity-score {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .sets-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 80px 1rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .filters-container {
+                flex-direction: column;
+            }
+
+            .sets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .set-card {
+                padding: 1.25rem;
+            }
+
+            .activity-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-stethoscope"></i>
+                <span>MediLearn Pro</span>
+            </a>
+            
+            <div class="nav-actions">
+                <button class="action-btn" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="index.html" class="action-btn primary">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header fade-in">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="page-title">Anatomy Questions</h1>
+                <p class="page-subtitle">Explore various anatomy question sets organized by type, year, and difficulty.</p>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <section class="filters-section fade-in delay-1">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label class="filter-label" for="setType">Question Set Type</label>
+                    <select class="filter-select" id="setType">
+                        <option value="all">All Types</option>
+                        <option value="exam">Final Exams</option>
+                        <option value="quiz">Quizzes</option>
+                        <option value="worksheet">Worksheets</option>
+                        <option value="practice">Practice Sets</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label" for="year">Year</label>
+                    <select class="filter-select" id="year">
+                        <option value="all">All Years</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label" for="difficulty">Difficulty</label>
+                    <select class="filter-select" id="difficulty">
+                        <option value="all">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Sets -->
+        <section class="question-sets-section fade-in delay-2">
+            <h2 class="section-title">Available Question Sets</h2>
+            <div class="sets-grid" id="setsGrid">
+                <!-- Skeleton loading cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="recent-activity fade-in delay-3">
+            <h2 class="activity-title">
+                <i class="fas fa-history"></i>
+                Your Recent Activity
+            </h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="activity-info">
+                        <div class="activity-name">Neuroanatomy Basics</div>
+                        <div class="activity-details">Completed 2 days ago • <span class="activity-score">85% Score</span></div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="activity-info">
+                        <div class="activity-name">Cardiovascular System Quiz</div>
+                        <div class="activity-details">Completed 1 week ago • <span class="activity-score">78% Score</span></div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-bone"></i>
+                    </div>
+                    <div class="activity-info">
+                        <div class="activity-name">Upper Limb Anatomy</div>
+                        <div class="activity-details">Completed 2 weeks ago • <span class="activity-score">92% Score</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Security measures
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
+                (e.ctrlKey && e.keyCode === 85) || 
+                (e.ctrlKey && e.keyCode === 83)) {
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                document.body.style.filter = 'blur(10px)';
+            } else {
+                document.body.style.filter = 'none';
+            }
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Sample question sets data
+        const questionSets = [
+            {
+                id: 1,
+                title: "Anatomy Last year exam",
+                type: "practice",
+                year: "2017",
+                difficulty: "intermediate",
+                description: "A comprehensive review covering all major anatomy systems with detailed explanations and high-yield questions.",
+                questions: 60,
+                avgScore: 54,
+                rating: 4.9,
+                featured: true,
+                page: "ANaTOmy2017.html"
+            },
+            {
+                id: 2,
+                title: "2016 Final Exam",
+                type: "exam",
+                year: "2016",
+                difficulty: "advanced",
+                description: "Official final examination from 2017 covering musculoskeletal, nervous, and cardiovascular systems.",
+                questions: 120,
+                avgScore: 78,
+                rating: 4.7,
+                page: "01histo.html"
+            },
+            {
+                id: 3,
+                title: "Quizlet Best Practice",
+                type: "quiz",
+                year: "2022",
+                difficulty: "beginner",
+                description: "Curated collection of high-yield anatomy questions from top Quizlet sets used by medical students.",
+                questions: 200,
+                avgScore: 82,
+                rating: 4.8,
+                page: "2022anatomy.html"
+            },
+            {
+                id: 4,
+                title: "Musculoskeletal System",
+                type: "worksheet",
+                year: "2023",
+                difficulty: "intermediate",
+                description: "Focused worksheet on bones, joints, and muscles with detailed diagrams and clinical correlations.",
+                questions: 75,
+                avgScore: 88,
+                rating: 4.6,
+                page: "musculoskeletal.html"
+            },
+            {
+                id: 5,
+                title: "Neuroanatomy Challenge",
+                type: "practice",
+                year: "2021",
+                difficulty: "advanced",
+                description: "Advanced questions on brain structures, cranial nerves, and pathways with clinical scenarios.",
+                questions: 90,
+                avgScore: 70,
+                rating: 4.5,
+                page: "2021anatomy.html"
+            },
+            {
+                id: 6,
+                title: "Cardiothoracic Anatomy",
+                type: "quiz",
+                year: "2020",
+                difficulty: "intermediate",
+                description: "Comprehensive quiz on heart, lungs, and thoracic cavity anatomy with radiology images.",
+                questions: 60,
+                avgScore: 80,
+                rating: 4.7,
+                page: "2020anatomy.html"
+            },
+            {
+                id: 7,
+                title: "Head and Neck Anatomy",
+                type: "worksheet",
+                year: "2019",
+                difficulty: "advanced",
+                description: "Detailed worksheet focusing on cranial anatomy, facial structures, and neck regions.",
+                questions: 85,
+                avgScore: 75,
+                rating: 4.4,
+                page: "2019anatomy.html"
+            },
+            {
+                id: 8,
+                title: "Embryology Fundamentals",
+                type: "practice",
+                year: "2022",
+                difficulty: "beginner",
+                description: "Essential questions on human development from fertilization to fetal stages.",
+                questions: 70,
+                avgScore: 83,
+                rating: 4.6,
+                page: "embryology.html"
+            },
+            {
+                id: 9,
+                title: "Abdomen and Pelvis",
+                type: "quiz",
+                year: "2023",
+                difficulty: "intermediate",
+                description: "Comprehensive quiz covering abdominal organs, pelvic structures, and their relationships.",
+                questions: 95,
+                avgScore: 79,
+                rating: 4.7,
+                page: "abdomen-pelvis.html"
+            }
+        ];
+
+        // DOM elements
+        const setsGrid = document.getElementById('setsGrid');
+        const setTypeFilter = document.getElementById('setType');
+        const yearFilter = document.getElementById('year');
+        const difficultyFilter = document.getElementById('difficulty');
+
+        // Create skeleton loading cards
+        function createSkeletonCards(count) {
+            setsGrid.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const skeletonCard = document.createElement('div');
+                skeletonCard.className = 'set-card skeleton-card';
+                skeletonCard.innerHTML = `
+                    <div>
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text"></div>
+                    </div>
+                    <div class="set-meta">
+                        <div class="meta-item">
+                            <div class="skeleton skeleton-meta"></div>
+                            <div class="skeleton skeleton-text" style="width: 60%"></div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="skeleton skeleton-meta"></div>
+                            <div class="skeleton skeleton-text" style="width: 60%"></div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="skeleton skeleton-meta"></div>
+                            <div class="skeleton skeleton-text" style="width: 60%"></div>
+                        </div>
+                    </div>
+                `;
+                setsGrid.appendChild(skeletonCard);
+            }
+        }
+
+        // Render question set cards
+        function renderQuestionSets(sets) {
+            setsGrid.innerHTML = '';
+            
+            if (sets.length === 0) {
+                setsGrid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No question sets found</h3>
+                        <p>Try adjusting your filters to see more results.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            sets.forEach(set => {
+                const setCard = document.createElement('a');
+                setCard.className = `set-card ${set.featured ? 'featured-set' : ''}`;
+                setCard.href = set.page;
+                setCard.dataset.id = set.id;
+                setCard.innerHTML = `
+                    ${set.featured ? '<div class="featured-badge">Featured</div>' : ''}
+                    <div class="set-header">
+                        <div>
+                            <h3 class="set-title">${set.title}</h3>
+                            <span class="set-type">${getTypeLabel(set.type)}</span>
+                        </div>
+                    </div>
+                    <p class="set-description">${set.description}</p>
+                    <div class="set-meta">
+                        <div class="meta-item">
+                            <span class="meta-value">${set.questions}</span>
+                            <span class="meta-label">Questions</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-value">${set.avgScore}%</span>
+                            <span class="meta-label">Avg. Score</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-value">${set.rating}</span>
+                            <span class="meta-label">Rating</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click animation
+                setCard.addEventListener('click', function(e) {
+                    // Add visual feedback
+                    this.style.transform = 'translateY(-2px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+                
+                setsGrid.appendChild(setCard);
+            });
+        }
+
+        // Get type label
+        function getTypeLabel(type) {
+            const typeLabels = {
+                'exam': 'Final Exam',
+                'quiz': 'Quiz',
+                'worksheet': 'Worksheet',
+                'practice': 'Practice Set'
+            };
+            return typeLabels[type] || type;
+        }
+
+        // Filter question sets
+        function filterQuestionSets() {
+            const typeValue = setTypeFilter.value;
+            const yearValue = yearFilter.value;
+            const difficultyValue = difficultyFilter.value;
+            
+            const filteredSets = questionSets.filter(set => {
+                const typeMatch = typeValue === 'all' || set.type === typeValue;
+                const yearMatch = yearValue === 'all' || set.year === yearValue;
+                const difficultyMatch = difficultyValue === 'all' || set.difficulty === difficultyValue;
+                
+                return typeMatch && yearMatch && difficultyMatch;
+            });
+            
+            renderQuestionSets(filteredSets);
+        }
+
+        // Initialize page
+        function initPage() {
+            // Show skeleton loading
+            createSkeletonCards(6);
+            
+            // Simulate loading data
+            setTimeout(() => {
+                renderQuestionSets(questionSets);
+            }, 1500);
+            
+            // Add event listeners to filters
+            setTypeFilter.addEventListener('change', filterQuestionSets);
+            yearFilter.addEventListener('change', filterQuestionSets);
+            difficultyFilter.addEventListener('change', filterQuestionSets);
+        }
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeInObserver.observe(el);
+        });
+
+        // Initialize the page
+        initPage();
+    </script>
+</body>
+</html>

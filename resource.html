@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources | MediQuiz Pro - Advanced Medical Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #eab308;
+            --info: #0ea5e9;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --border: #e5e7eb;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --gradient-dark: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(229, 231, 235, 0.3);
+            --neon-glow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .dark-mode {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary: #94a3b8;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-tertiary: #6b7280;
+            --border: #334155;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.6);
+            --glass: rgba(30, 41, 59, 0.85);
+            --glass-border: rgba(51, 65, 85, 0.3);
+            --neon-glow: 0 0 10px rgba(96, 165, 250, 0.5), 0 0 20px rgba(96, 165, 250, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            transition: var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.05) 100%);
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.7;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--background);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-box {
+            position: relative;
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--background);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .resource-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .resource-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover .resource-image img {
+            transform: scale(1.05);
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .resource-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .resource-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .resource-duration, .resource-level {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .resource-btn {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .resource-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .resource-btn.secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .resource-btn.secondary:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+        }
+
+        /* Featured Resources */
+        .featured-resources {
+            background: var(--surface);
+        }
+
+        .featured-slider {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .featured-track {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem 0;
+            scrollbar-width: none;
+        }
+
+        .featured-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .featured-card {
+            min-width: 350px;
+            background: var(--background);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--warning);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .slider-btn:disabled {
+            background: var(--text-tertiary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius-xl);
+            margin: 0 auto 5rem;
+            max-width: 1200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.1"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-subtitle {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .resources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .filter-options {
+                flex-direction: column;
+            }
+
+            .filter-group, .search-box {
+                min-width: 100%;
+            }
+
+            .filter-actions {
+                justify-content: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card {
+                min-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-stethoscope"></i>
+                <span>MediQuiz Pro</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="quizzes.html" class="nav-link">Quizzes</a>
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="resources.html" class="nav-link active">Resources</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="action-btn" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="login.html" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    Sign In
+                </a>
+                <a href="register.html" class="action-btn primary">
+                    <i class="fas fa-user-plus"></i>
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Medical professionals collaborating">
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">Knowledge Hub</span>
+            <h1 class="hero-title">Medical Learning Resources</h1>
+            <p class="hero-subtitle">
+                Access our comprehensive library of medical resources, study guides, 
+                research papers, and educational materials curated by medical experts.
+            </p>
+            <div class="hero-actions">
+                <a href="#resources" class="action-btn primary">
+                    <i class="fas fa-book-medical"></i>
+                    Browse Resources
+                </a>
+                <a href="#featured" class="action-btn">
+                    <i class="fas fa-star"></i>
+                    Featured Content
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="section">
+        <div class="filter-section">
+            <div class="filter-container">
+                <h3 class="filter-title">Find the perfect resource</h3>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label class="filter-label">Resource Type</label>
+                        <select class="filter-select" id="typeFilter">
+                            <option value="all">All Types</option>
+                            <option value="guide">Study Guides</option>
+                            <option value="video">Video Lectures</option>
+                            <option value="article">Research Articles</option>
+                            <option value="cheatsheet">Cheat Sheets</option>
+                            <option value="case">Case Studies</option>
+                            <option value="textbook">Textbook Excerpts</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Specialty</label>
+                        <select class="filter-select" id="specialtyFilter">
+                            <option value="all">All Specialties</option>
+                            <option value="cardiology">Cardiology</option>
+                            <option value="neurology">Neurology</option>
+                            <option value="pediatrics">Pediatrics</option>
+                            <option value="surgery">Surgery</option>
+                            <option value="pharmacology">Pharmacology</option>
+                            <option value="pathology">Pathology</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Difficulty</label>
+                        <select class="filter-select" id="difficultyFilter">
+                            <option value="all">All Levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <label class="filter-label">Search Resources</label>
+                        <div class="search-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search by keyword, topic, or author...">
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="action-btn" id="resetFilters">
+                        <i class="fas fa-redo"></i>
+                        Reset Filters
+                    </button>
+                    <button class="action-btn primary" id="applyFilters">
+                        <i class="fas fa-filter"></i>
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="section-header">
+            <h2 class="section-title" id="resources">Medical Resources Library</h2>
+            <p class="section-subtitle">
+                Explore our collection of high-quality medical education resources
+            </p>
+        </div>
+        
+        <div class="resources-grid">
+            <div class="resource-card fade-in">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Cardiology study guide">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Study Guide</span>
+                    <h3 class="resource-title">Comprehensive Cardiology Guide</h3>
+                    <p class="resource-description">
+                        A complete guide to cardiovascular diseases, diagnostic approaches, 
+                        and treatment protocols for medical students and residents.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>45 pages</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card fade-in delay-1">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Neurology video series">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Video Series</span>
+                    <h3 class="resource-title">Neurology Case Studies</h3>
+                    <p class="resource-description">
+                        Video series analyzing complex neurological cases with expert 
+                        commentary and diagnostic reasoning.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>12 videos</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Advanced</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-play-circle"></i>
+                        Watch Series
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card fade-in delay-2">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Pharmacology cheat sheet">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Cheat Sheet</span>
+                    <h3 class="resource-title">Pharmacology Drug Classes</h3>
+                    <p class="resource-description">
+                        Quick reference guide to major drug classes, mechanisms of action, 
+                        and common side effects for clinical rotations.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>8 pages</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Beginner</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card fade-in delay-3">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Medical research article">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Research Article</span>
+                    <h3 class="resource-title">Advances in Immunotherapy</h3>
+                    <p class="resource-description">
+                        Recent developments in cancer immunotherapy with clinical 
+                        trial data and future directions for treatment.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>15 pages</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Advanced</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-download"></i>
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card fade-in">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Pediatrics textbook">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Textbook Excerpt</span>
+                    <h3 class="resource-title">Pediatric Emergencies</h3>
+                    <p class="resource-description">
+                        Essential chapters from Nelson Textbook of Pediatrics covering 
+                        common pediatric emergencies and management protocols.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>32 pages</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-download"></i>
+                        Download
+                    </a>
+                </div>
+            </div>
+            
+            <div class="resource-card fade-in delay-1">
+                <div class="resource-image">
+                    <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Surgical procedures">
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Video Lecture</span>
+                    <h3 class="resource-title">Common Surgical Procedures</h3>
+                    <p class="resource-description">
+                        Step-by-step video demonstrations of common surgical procedures 
+                        with expert commentary and technique tips.
+                    </p>
+                    <div class="resource-meta">
+                        <div class="resource-duration">
+                            <i class="far fa-clock"></i>
+                            <span>45 min</span>
+                        </div>
+                        <div class="resource-level">
+                            <i class="fas fa-signal"></i>
+                            <span>Intermediate</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-actions">
+                    <a href="#" class="resource-btn secondary">
+                        <i class="far fa-eye"></i>
+                        Preview
+                    </a>
+                    <a href="#" class="resource-btn primary">
+                        <i class="fas fa-play-circle"></i>
+                        Watch Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Resources -->
+    <section class="section featured-resources" id="featured">
+        <div class="section-header">
+            <h2 class="section-title">Featured Resources</h2>
+            <p class="section-subtitle">
+                Hand-picked resources our medical educators recommend
+            </p>
+        </div>
+        
+        <div class="featured-slider">
+            <div class="featured-track" id="featuredTrack">
+                <div class="featured-card fade-in">
+                    <div class="featured-badge">Editor's Pick</div>
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Featured resource">
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-type">Case Study</span>
+                        <h3 class="resource-title">Complex Diagnosis: A Clinical Challenge</h3>
+                        <p class="resource-description">
+                            An in-depth analysis of a challenging diagnostic case with 
+                            differential diagnoses and final resolution.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="far fa-clock"></i>
+                                <span>22 pages</span>
+                            </div>
+                            <div class="resource-level">
+                                <i class="fas fa-signal"></i>
+                                <span>Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <a href="#" class="resource-btn primary">
+                            <i class="fas fa-download"></i>
+                            Download Case
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="featured-card fade-in delay-1">
+                    <div class="featured-badge">New Release</div>
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="New resource">
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-type">Study Guide</span>
+                        <h3 class="resource-title">USMLE Step 1 High-Yield Facts</h3>
+                        <p class="resource-description">
+                            Condensed review of the most frequently tested concepts 
+                            for the USMLE Step 1 examination.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="far fa-clock"></i>
+                                <span>18 pages</span>
+                            </div>
+                            <div class="resource-level">
+                                <i class="fas fa-signal"></i>
+                                <span>All Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <a href="#" class="resource-btn primary">
+                            <i class="fas fa-download"></i>
+                            Download Guide
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="featured-card fade-in delay-2">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="resource-image">
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Popular resource">
+                    </div>
+                    <div class="resource-content">
+                        <span class="resource-type">Video Series</span>
+                        <h3 class="resource-title">ECG Interpretation Masterclass</h3>
+                        <p class="resource-description">
+                            Comprehensive video series teaching systematic approach 
+                            to ECG interpretation with real clinical examples.
+                        </p>
+                        <div class="resource-meta">
+                            <div class="resource-duration">
+                                <i class="far fa-clock"></i>
+                                <span>8 videos</span>
+                            </div>
+                            <div class="resource-level">
+                                <i class="fas fa-signal"></i>
+                                <span>Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-actions">
+                        <a href="#" class="resource-btn primary">
+                            <i class="fas fa-play-circle"></i>
+                            Watch Series
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevSlide">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn" id="nextSlide">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section">
+        <div class="newsletter">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Stay Updated with New Resources</h2>
+                <p class="newsletter-subtitle">
+                    Join our newsletter to receive weekly updates on new medical resources, 
+                    study tips, and exclusive content from our medical educators.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                    <button type="submit" class="action-btn primary" style="background: white; color: var(--primary);">
+                        <i class="fas fa-paper-plane"></i>
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MediQuiz Pro</h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+                    Advanced medical education platform designed to help students 
+                    and professionals master complex medical concepts through 
+                    interactive learning and intelligent assessment.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quizzes.html">Quizzes</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="support.html">Support</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> hello@mediquizpro.com</li>
+                    <li><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> 123 Medical Drive, Suite 100<br>San Francisco, CA 94107</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                &copy; 2025 MediQuiz Pro. All rights reserved.
+            </div>
+            <div class="footer-links" style="display: flex; gap: 1.5rem;">
+                <a href="privacy.html" style="color: var(--text-tertiary); text-decoration: none; font-size: 0.875rem;">Privacy Policy</a>
+                <a href="terms.html" style="color: var(--text-tertiary); text-decoration: none; font-size: 0.875rem;">Terms of Service</a>
+                <a href="cookies.html" style="color: var(--text-tertiary); text-decoration: none; font-size: 0.875rem;">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Featured resources slider
+        const featuredTrack = document.getElementById('featuredTrack');
+        const prevSlide = document.getElementById('prevSlide');
+        const nextSlide = document.getElementById('nextSlide');
+        
+        let currentSlide = 0;
+        const slideWidth = 350 + 32; // card width + gap
+        
+        function updateSlider() {
+            featuredTrack.scrollTo({
+                left: currentSlide * slideWidth,
+                behavior: 'smooth'
+            });
+            
+            // Update button states
+            prevSlide.disabled = currentSlide === 0;
+            nextSlide.disabled = currentSlide >= featuredTrack.children.length - 1;
+        }
+        
+        prevSlide.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        });
+        
+        nextSlide.addEventListener('click', () => {
+            if (currentSlide < featuredTrack.children.length - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        });
+        
+        // Initialize slider
+        updateSlider();
+
+        // Filter functionality
+        const typeFilter = document.getElementById('typeFilter');
+        const specialtyFilter = document.getElementById('specialtyFilter');
+        const difficultyFilter = document.getElementById('difficultyFilter');
+        const searchInput = document.getElementById('searchInput');
+        const applyFilters = document.getElementById('applyFilters');
+        const resetFilters = document.getElementById('resetFilters');
+        
+        applyFilters.addEventListener('click', () => {
+            // In a real implementation, this would filter the resources
+            // For this demo, we'll just show an alert
+            alert('Filters applied! In a real implementation, this would filter the resource cards.');
+        });
+        
+        resetFilters.addEventListener('click', () => {
+            typeFilter.value = 'all';
+            specialtyFilter.value = 'all';
+            difficultyFilter.value = 'all';
+            searchInput.value = '';
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeInObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

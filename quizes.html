@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Quizzes | MediLearn Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #dbeafe;
+            --secondary: #6b7280;
+            --success: #22c55e;
+            --error: #ef4444;
+            --warning: #eab308;
+            --info: #0ea5e9;
+            --background: #ffffff;
+            --surface: #f9fafb;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --border: #e5e7eb;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --gradient-dark: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(229, 231, 235, 0.3);
+            --neon-glow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+            --skeleton: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        }
+
+        .dark-mode {
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --primary-light: #93c5fd;
+            --secondary: #94a3b8;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-tertiary: #6b7280;
+            --border: #334155;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.6);
+            --glass: rgba(30, 41, 59, 0.85);
+            --glass-border: rgba(51, 65, 85, 0.3);
+            --neon-glow: 0 0 10px rgba(96, 165, 250, 0.5), 0 0 20px rgba(96, 165, 250, 0.3);
+            --skeleton: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-size: 16px;
+            transition: var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Enhanced scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            touch-action: manipulation;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Quiz Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            touch-action: manipulation;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .category-card:hover, .category-card:active {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .category-card:active {
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .category-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Quiz Modes */
+        .quiz-modes {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .mode-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .mode-card:hover::before, .mode-card:active::before {
+            opacity: 0.05;
+        }
+
+        .mode-card.active {
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .mode-card.active::before {
+            opacity: 0.1;
+        }
+
+        .mode-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mode-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mode-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Active Quiz Section */
+        .active-quiz {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            display: none;
+        }
+
+        .active-quiz.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .quiz-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .quiz-timer {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-timer.warning {
+            background: var(--warning);
+        }
+
+        .quiz-timer.danger {
+            background: var(--error);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .question-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-number {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--surface);
+            touch-action: manipulation;
+        }
+
+        .option:hover, .option:active {
+            border-color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .option-letter {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .option.selected .option-letter {
+            background: var(--primary);
+            color: white;
+        }
+
+        .option.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option.incorrect .option-letter {
+            background: var(--error);
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .progress-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .results-header {
+            margin-bottom: 2rem;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 2rem 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Leaderboard */
+        .leaderboard-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .leaderboard-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .leaderboard-item:hover {
+            background: var(--glass);
+        }
+
+        .leaderboard-item.you {
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+        }
+
+        .rank {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); }
+        .rank-2 { background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%); }
+        .rank-3 { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-score {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: var(--skeleton);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius);
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-title {
+            height: 1.5rem;
+            width: 70%;
+            margin-bottom: 1rem;
+        }
+
+        .skeleton-meta {
+            height: 1.1rem;
+            width: 40%;
+        }
+
+        .skeleton-card {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 80px 1rem 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .quiz-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .progress-info {
+                justify-content: space-between;
+            }
+
+            .control-buttons {
+                width: 100%;
+            }
+
+            .control-buttons .action-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .category-card, .mode-card, .question-card {
+                padding: 1.5rem;
+            }
+
+            .results-section {
+                padding: 2rem 1rem;
+            }
+
+            .score-display {
+                font-size: 3rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--error);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-stethoscope"></i>
+                <span>MediLearn Pro</span>
+            </a>
+            
+            <div class="nav-actions">
+                <button class="action-btn" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+                <a href="index.html" class="action-btn primary">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header fade-in">
+            <h1 class="page-title">Medical Quizzes</h1>
+            <p class="page-subtitle">Test your medical knowledge with interactive quizzes designed to reinforce learning and track your progress.</p>
+        </div>
+
+        <!-- Quiz Categories -->
+        <section class="quiz-categories fade-in delay-1">
+            <h2 class="section-title">Quiz Categories</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Skeleton loading cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Quiz Modes -->
+        <section class="quiz-modes fade-in delay-2">
+            <h2 class="section-title">Quiz Modes</h2>
+            <div class="modes-grid" id="modesGrid">
+                <!-- Skeleton loading cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Active Quiz Section -->
+        <section class="active-quiz" id="activeQuiz">
+            <div class="quiz-header">
+                <div class="quiz-info">
+                    <h3>Anatomy Practice Quiz</h3>
+                    <div class="quiz-meta">
+                        <span><i class="fas fa-question-circle"></i> 20 Questions</span>
+                        <span><i class="fas fa-clock"></i> 30 Minutes</span>
+                        <span><i class="fas fa-trophy"></i> Intermediate</span>
+                    </div>
+                </div>
+                <div class="quiz-timer" id="quizTimer">
+                    <i class="fas fa-clock"></i>
+                    <span>02:30</span>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-header">
+                    <div class="question-number">Question 1 of 20</div>
+                </div>
+                <div class="question-text">
+                    Which of the following bones is part of the axial skeleton?
+                </div>
+                <div class="options-grid">
+                    <div class="option" data-option="1">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">Femur</div>
+                    </div>
+                    <div class="option" data-option="2">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">Humerus</div>
+                    </div>
+                    <div class="option" data-option="3">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">Sternum</div>
+                    </div>
+                    <div class="option" data-option="4">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">Tibia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <div class="progress-info">
+                    <span>Progress: 5%</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 5%"></div>
+                    </div>
+                </div>
+                <div class="control-buttons">
+                    <button class="action-btn">
+                        <i class="fas fa-flag"></i>
+                        Flag Question
+                    </button>
+                    <button class="action-btn primary">
+                        <i class="fas fa-check-circle"></i>
+                        Check Answer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <h2 class="results-title">Quiz Complete!</h2>
+                <p>You've finished the Anatomy Practice Quiz. Here's how you performed:</p>
+            </div>
+            
+            <div class="score-display">85%</div>
+            
+            <div class="results-details">
+                <div class="result-stat">
+                    <span class="stat-number">17</span>
+                    <span class="stat-label">Correct Answers</span>
+                </div>
+                <div class="result-stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Incorrect Answers</span>
+                </div>
+                <div class="result-stat">
+                    <span class="stat-number">12:45</span>
+                    <span class="stat-label">Time Taken</span>
+                </div>
+                <div class="result-stat">
+                    <span class="stat-number">92%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+            </div>
+
+            <div class="control-buttons">
+                <button class="action-btn">
+                    <i class="fas fa-redo"></i>
+                    Retry Quiz
+                </button>
+                <button class="action-btn primary">
+                    <i class="fas fa-chart-bar"></i>
+                    View Detailed Results
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-share"></i>
+                    Share Results
+                </button>
+            </div>
+        </section>
+
+        <!-- Leaderboard -->
+        <section class="leaderboard-section fade-in delay-3">
+            <h2 class="leaderboard-title">
+                <i class="fas fa-trophy"></i>
+                Weekly Leaderboard
+            </h2>
+            <div class="leaderboard-list">
+                <div class="leaderboard-item">
+                    <div class="rank rank-1">1</div>
+                    <div class="user-info">
+                        <div class="user-name">Sarah Johnson</div>
+                        <div class="user-score">Anatomy Master • 95% Average</div>
+                    </div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="rank rank-2">2</div>
+                    <div class="user-info">
+                        <div class="user-name">Michael Chen</div>
+                        <div class="user-score">Physiology Expert • 92% Average</div>
+                    </div>
+                </div>
+                <div class="leaderboard-item">
+                    <div class="rank rank-3">3</div>
+                    <div class="user-info">
+                        <div class="user-name">Emily Rodriguez</div>
+                        <div class="user-score">Pharmacology Specialist • 89% Average</div>
+                    </div>
+                </div>
+                <div class="leaderboard-item you">
+                    <div class="rank">7</div>
+                    <div class="user-info">
+                        <div class="user-name">You</div>
+                        <div class="user-score">Rising Star • 85% Average</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Security measures
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 74) || 
+                (e.ctrlKey && e.keyCode === 85) || 
+                (e.ctrlKey && e.keyCode === 83)) {
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                document.body.style.filter = 'blur(10px)';
+            } else {
+                document.body.style.filter = 'none';
+            }
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Sample data for categories and modes
+        const categoriesData = [
+            {
+                id: 1,
+                title: "Anatomy",
+                description: "Test your knowledge of human anatomy with detailed questions about body structures and systems.",
+                icon: "fas fa-brain",
+                questions: 250,
+                avgScore: 85,
+                rating: 4.8,
+                link: "anatomyqu.html"
+            },
+            {
+                id: 2,
+                title: "Physiology",
+                description: "Understand body functions and processes with comprehensive physiology questions.",
+                icon: "fas fa-heartbeat",
+                questions: 180,
+                avgScore: 78,
+                rating: 4.6,
+                link: "physiology.html"
+            },
+            {
+                id: 3,
+                title: "Pharmacology",
+                description: "Master drug mechanisms, interactions, and therapeutic uses with challenging questions.",
+                icon: "fas fa-pills",
+                questions: 320,
+                avgScore: 72,
+                rating: 4.7,
+                link: "pharmacology.html"
+            }
+        ];
+
+        const modesData = [
+            {
+                id: 1,
+                title: "Practice Mode",
+                description: "Learn at your own pace with instant feedback and explanations.",
+                icon: "fas fa-graduation-cap",
+                mode: "practice"
+            },
+            {
+                id: 2,
+                title: "Timed Challenge",
+                description: "Test your speed and accuracy with time-limited questions.",
+                icon: "fas fa-clock",
+                mode: "timed"
+            },
+            {
+                id: 3,
+                title: "Exam Simulation",
+                description: "Simulate real exam conditions with comprehensive tests.",
+                icon: "fas fa-file-medical",
+                mode: "exam"
+            },
+            {
+                id: 4,
+                title: "Adaptive Learning",
+                description: "AI-powered quizzes that adapt to your knowledge level.",
+                icon: "fas fa-brain",
+                mode: "adaptive"
+            }
+        ];
+
+        // DOM elements
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const modesGrid = document.getElementById('modesGrid');
+        const activeQuiz = document.getElementById('activeQuiz');
+        const resultsSection = document.getElementById('resultsSection');
+        const options = document.querySelectorAll('.option');
+        const quizTimer = document.getElementById('quizTimer');
+
+        // Create skeleton loading cards
+        function createSkeletonCards(container, count, type) {
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const skeletonCard = document.createElement('div');
+                skeletonCard.className = type === 'category' ? 'category-card skeleton-card' : 'mode-card skeleton-card';
+                
+                if (type === 'category') {
+                    skeletonCard.innerHTML = `
+                        <div class="category-icon skeleton"></div>
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="category-stats">
+                            <div class="stat">
+                                <div class="skeleton skeleton-meta"></div>
+                                <div class="skeleton skeleton-text" style="width: 60%"></div>
+                            </div>
+                            <div class="stat">
+                                <div class="skeleton skeleton-meta"></div>
+                                <div class="skeleton skeleton-text" style="width: 60%"></div>
+                            </div>
+                            <div class="stat">
+                                <div class="skeleton skeleton-meta"></div>
+                                <div class="skeleton skeleton-text" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    skeletonCard.innerHTML = `
+                        <div class="mode-icon skeleton"></div>
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                    `;
+                }
+                
+                container.appendChild(skeletonCard);
+            }
+        }
+
+        // Render category cards
+        function renderCategoryCards(categories) {
+            categoriesGrid.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryCard = document.createElement('a');
+                categoryCard.className = 'category-card fade-in';
+                categoryCard.href = category.link;
+                categoryCard.innerHTML = `
+                    <div class="category-icon">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <h3 class="category-title">${category.title}</h3>
+                    <p class="category-description">${category.description}</p>
+                    <div class="category-stats">
+                        <div class="stat">
+                            <span class="stat-value">${category.questions}</span>
+                            <span class="stat-label">Questions</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">${category.avgScore}%</span>
+                            <span class="stat-label">Avg. Score</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">${category.rating}</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+                `;
+                
+                // Add click animation
+                categoryCard.addEventListener('click', function(e) {
+                    // Add visual feedback
+                    this.style.transform = 'translateY(-5px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+                
+                categoriesGrid.appendChild(categoryCard);
+            });
+        }
+
+        // Render mode cards
+        function renderModeCards(modes) {
+            modesGrid.innerHTML = '';
+            
+            modes.forEach(mode => {
+                const modeCard = document.createElement('div');
+                modeCard.className = 'mode-card fade-in';
+                modeCard.dataset.mode = mode.mode;
+                modeCard.innerHTML = `
+                    <div class="mode-icon">
+                        <i class="${mode.icon}"></i>
+                    </div>
+                    <h3 class="mode-title">${mode.title}</h3>
+                    <p class="mode-description">${mode.description}</p>
+                `;
+                
+                // Add click animation
+                modeCard.addEventListener('click', function(e) {
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                    
+                    // Set active mode
+                    document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                
+                modesGrid.appendChild(modeCard);
+            });
+        }
+
+        // Initialize page with skeleton loading
+        function initPage() {
+            // Show skeleton loading for categories
+            createSkeletonCards(categoriesGrid, 3, 'category');
+            
+            // Show skeleton loading for modes
+            createSkeletonCards(modesGrid, 4, 'mode');
+            
+            // Simulate loading data
+            setTimeout(() => {
+                renderCategoryCards(categoriesData);
+                renderModeCards(modesData);
+            }, 1500);
+        }
+
+        // Option selection
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const optionsContainer = option.closest('.options-grid');
+                optionsContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+            });
+        });
+
+        // Timer functionality
+        function startTimer(seconds) {
+            let timeLeft = seconds;
+            const timerElement = quizTimer.querySelector('span');
+            
+            const timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                
+                // Update timer styling based on time left
+                if (timeLeft <= 30) {
+                    quizTimer.classList.add('danger');
+                    quizTimer.classList.remove('warning');
+                } else if (timeLeft <= 60) {
+                    quizTimer.classList.add('warning');
+                    quizTimer.classList.remove('danger');
+                } else {
+                    quizTimer.classList.remove('warning', 'danger');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Auto-submit quiz when time runs out
+                    showResults();
+                }
+                
+                timeLeft--;
+            }, 1000);
+        }
+
+        // Show results function
+        function showResults() {
+            activeQuiz.classList.remove('active');
+            resultsSection.classList.add('active');
+        }
+
+        // Simulate quiz completion (for demo purposes)
+        document.querySelector('.control-buttons .action-btn.primary').addEventListener('click', function() {
+            if (this.textContent.includes('Check Answer')) {
+                // Show correct/incorrect states
+                const selectedOption = document.querySelector('.option.selected');
+                if (selectedOption) {
+                    const options = document.querySelectorAll('.option');
+                    options.forEach(opt => {
+                        if (opt.dataset.option === '3') { // Correct answer
+                            opt.classList.add('correct');
+                        } else if (opt.classList.contains('selected') && opt.dataset.option !== '3') {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    // Change button to "Next Question"
+                    this.innerHTML = '<i class="fas fa-arrow-right"></i> Next Question';
+                }
+            } else if (this.textContent.includes('Next Question')) {
+                // For demo, show results after "next question"
+                showResults();
+            }
+        });
+
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeInObserver.observe(el);
+        });
+
+        // Initialize the page
+        initPage();
+    </script>
+</body>
+</html>
